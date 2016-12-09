@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Color Picker</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="./assets/style.css">
+	<link rel="stylesheet" type="text/css" href="./assets/common.css">
+	<meta name="description" content="Color Picker (modeled after Adobe Color Picker / for Web usage)">
+</head>
+<body>
+    <nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">
+				<div class="navbar-logo">Color Picker</div>
+			</a>
+		</div>
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="mailto:luungoc2005@gmail.com">Report a Bug<span class="sr-only">(current)</span></a></li>
+				<li><a href="http://luungoc2005.github.io/">Home<span class="sr-only">(current)</span></a></li>
+			</ul>
+		</div>
+	</nav>
+	
+    <div class="container-fluid padding-bottom-20">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="picker-parent" class="form-control">
+                    <div class="picker-axis" id="z-axis"></div>
+                    <div class="picker-axis" id="x-axis"></div>
+                    <div class="picker-axis" id="y-axis"></div>
+                    <div class="picker-dragger"></div>
+                </div>
+                
+                <span class="glyphicon glyphicon-triangle-right margin-left-20 slider-handler" aria-hidden="true"></span>
+                <div id="picker-slider" class="form-control"></div>
+                <span class="glyphicon glyphicon-triangle-left slider-handler" aria-hidden="true"></span>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <label class="radio-inline">
+                            <input type="radio" name="color-radio" class="radio-hsl">H: 
+                        </label>
+                    </span>
+                    <input type="text" class="form-control color-hsl" id="color-hue" data-min="0" data-max="100">
+                    <span class="input-group-addon unit-label">º</span>
+                </div>
+                <div class="input-group padding-top-10">
+                    <span class="input-group-addon">
+                        <label class="radio-inline">
+                            <input type="radio" name="color-radio" class="radio-hsl">S: 
+                        </label>
+                    </span>
+                    <input type="text" class="form-control color-hsl" id="color-sat" data-min="0" data-max="360">
+                    <span class="input-group-addon unit-label">%</span>
+                </div>
+                <div class="input-group padding-top-10">
+                    <span class="input-group-addon">
+                        <label class="radio-inline color-hsl">
+                            <input type="radio" name="color-radio" class="radio-hsl" id="color-lit">L: 
+                        </label>
+                    </span>
+                    <input type="text" class="form-control" data-min="0" data-max="100">
+                    <span class="input-group-addon unit-label">%</span>
+                </div>
+                <div class="input-group padding-top-10">
+                    <span class="input-group-addon">
+                        <label class="radio-inline">
+                            <input type="radio" name="color-radio" class="radio-rgb">R: 
+                        </label>
+                    </span>
+                    <input type="text" class="form-control color-rgb" id="color-red" data-min="0" data-max="255">
+                </div>
+                <div class="input-group padding-top-10">
+                    <span class="input-group-addon">
+                        <label class="radio-inline">
+                            <input type="radio" name="color-radio" class="radio-rgb">G: 
+                        </label>
+                    </span>
+                    <input type="text" class="form-control color-rgb" id="color-gre" data-min="0" data-max="255">
+                </div>
+                <div class="input-group padding-top-10">
+                    <span class="input-group-addon">
+                        <label class="radio-inline">
+                            <input type="radio" name="color-radio" class="radio-rgb">B: 
+                        </label>
+                    </span>
+                    <input type="text" class="form-control color-rgb" id="color-blu">
+                </div>
+                <div class="input-group padding-top-10">
+                    <span class="input-group-addon">#</span>
+                    <input type="text" class="form-control color-hex" data-min="0" data-max="255">
+                </div>
+            </div>
+            <div class="col-md-4">
+                More Controls
+            </div>
+        </div>
+    </div>
+    
+	<div class="footer container-fluid">
+		<div class="row">
+			<div class="col-md-4">
+				<h4>A Web Color Picker</h4>
+				<p>Made by luungoc2005</p>
+				<p>Modeled after Adobe's Color Picker (seen in Photoshop / Illustrator etc. ) - which is familiar to a lot of people including myself.</p>
+			</div>
+			<div class="col-md-8">
+				<h4>Libraries usage</h4>
+				<p><mark>jQuery 3</mark> for various UI functions and compatibility <a href="http://jquery.com/" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></p>
+				<p><mark>Bootstrap 3</mark> for theming <a href="http://getbootstrap.com/" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></p>
+			</div>
+		</div>
+	</div>
+	
+    <!-- jQuery and Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    <!-- Others -->
+    <script type="text/javascript" src="libs/picker.js"></script>
+    
+	<!-- Google Analytics code -->
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-87659525-1', 'auto');
+  ga('send', 'pageview');
+
+	</script>
+
+</body>
+</html>

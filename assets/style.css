@@ -1,0 +1,60 @@
+#picker-parent {
+    width: 70%;
+    padding-bottom: 70%;
+    display: inline-block;
+    position: relative;
+}
+
+.picker-dragger {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    background-color: transparent;
+    cursor: pointer;
+    z-index: 10;
+    left: 0;
+    top: 0;
+}
+
+#picker-slider {
+    width: 5%;
+    padding-bottom: 70%;
+    height: 100%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.slider-handler {
+    cursor: pointer;    
+}
+
+.unit-label {
+    width: 35px;
+    padding-left: 6px;
+}
+
+.picker-axis {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+#z-axis {
+    background: rgb(255,0,0);
+    z-index: 0;
+}
+
+#x-axis {
+    background: linear-gradient(to right, rgba(255,0,255,1), rgba(255,255,255,0));
+    z-index: 1;
+}
+
+#y-axis {
+    background: linear-gradient(to top, rgba(255,255,0,1), rgba(255,255,255,0));
+    z-index: 2;
+}
