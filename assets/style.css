@@ -3,11 +3,13 @@
     padding-bottom: 70%;
     display: inline-block;
     position: relative;
+    cursor: pointer;
+    overflow: hidden;
 }
 
-.picker-dragger {
-    width: 15px;
-    height: 15px;
+#picker-dragger {
+    width: 20px;
+    height: 20px;
     position: absolute;
     border-radius: 10px;
     border: 2px solid #fff;

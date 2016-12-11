@@ -4,6 +4,10 @@ var picker = picker || [];
     "use strict";
     var colorHex = "";
     
+    function constraint(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+    }
+    
     // converter functions
     function RGBtoHSL(color) {
         var r = color[0] /= 255, g = color[1] /= 255, b = color[2] /= 255,
@@ -83,13 +87,16 @@ var picker = picker || [];
     // Slider functions
     
     function moveSliderPointer(yValue) {
-        var sliderHeight = parseFloat($("#picker-slider").css("height").replace("px","")),
-            pointerHeight = parseFloat($(".slider-handler").css("height").replace("px","")),
+        var sliderHeight = parseFloat($("#picker-slider").css("height").replace("px", "")),
+            pointerHeight = parseFloat($(".slider-handler").css("height").replace("px", "")),
             pos = $("#picker-slider").offset(),
-            yValue = yValue || $("#picker-slider").data("value") * sliderHeight;
+            yValue = (yValue || $("#picker-slider").data("value") * sliderHeight) || 0;
 
-        yValue = (typeof yValue === "string") ? parseFloat(yValue.replace("px","")) : yValue;
+        yValue = (typeof yValue === "string") ? parseFloat(yValue.replace("px", "")) : yValue;
+        yValue = constraint(yValue, 0, sliderHeight);
+        
         $("#picker-slider").data("value", yValue / sliderHeight);
+        
         pos.left = null;
         pos.top += yValue - pointerHeight / 2;
         $(".slider-handler").offset(pos);
@@ -119,12 +126,63 @@ var picker = picker || [];
         moveSliderPointer();
     }
     
+    // Dragger - similar to Slider
+    
+    function moveDraggerPointer(xValue, yValue) {
+        var containerWidth = parseFloat($("#picker-parent").css("width").replace("px", "")),
+            containerHeight = parseFloat($("#picker-parent").css("height").replace("px", "")),
+            draggerWidth = parseFloat($("#picker-dragger").css("width").replace("px", "")),
+            draggerHeight = parseFloat($("#picker-dragger").css("height").replace("px", "")),
+            pos = $("#picker-parent").offset(),
+            // in case passed value is null, take default value from element property
+            xValue = (xValue || $("#picker-parent").data("valueX") * containerWidth) || 0,
+            yValue = (yValue || $("#picker-parent").data("valueY") * containerHeight) || 0;
+        
+        xValue = (typeof xValue === "string") ? parseFloat(xValue.replace("px", "")) : xValue;
+        yValue = (typeof yValue === "string") ? parseFloat(yValue.replace("px", "")) : yValue;
+        xValue = constraint(xValue, 0, containerWidth);
+        yValue = constraint(yValue, 0, containerHeight);
+        
+        // set value property
+        $("#picker-parent").data("valueX", xValue / containerWidth);
+        $("#picker-parent").data("valueY", yValue / containerHeight);
+        
+        pos.left += xValue - draggerWidth / 2;
+        pos.top += yValue - draggerHeight / 2;
+        $("#picker-dragger").offset(pos);
+    }
+    
+    function draggerMoveHandler(args) {
+        var pos = $("#picker-parent").offset();
+        moveDraggerPointer(args.pageX - pos.left, args.pageY - pos.top);
+    }
+    
+    function initDragger() {
+        $("#picker-parent").on("mousedown", function (args) {
+            $(this).on("mousemove", draggerMoveHandler);
+            draggerMoveHandler(args);
+        });
+        $("#picker-dragger").on("mousedown", function (args) {
+            $(this).on("mousemove", draggerMoveHandler);
+            draggerMoveHandler(args);
+        });
+        $("body").on("mouseup", function () {
+            $("#picker-parent").off("mousemove", draggerMoveHandler);
+            $("#picker-dragger").off("mousemove", draggerMoveHandler);
+        });
+        $(window).on("resize", function () {
+           moveDraggerPointer();
+        });
+        moveDraggerPointer();
+    }
+    
     // main UI functions
     function init() {
         initSlider();
+        initDragger();
     }
     
-    $(document).ready(function () {    
+    $(document).ready(function () {
         init();
-    })
+    });
 })(jQuery, picker);
